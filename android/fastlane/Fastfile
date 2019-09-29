@@ -34,7 +34,7 @@ platform :android do
     lane :betadistribution do
       gradle(task: "clean assembleRelease")
       firebase_app_distribution(
-            app: "1:221518438226:android:3327484f2345963d4a248b",
+            app: “ASDASFADGSFDGHDFGHDFHJDGHJDHGKJDHSDGHSDGHFDGHF”,
             testers: "vakhariajat@gmail.com, jaitnjvv@gmail.com",
             release_notes: "My First continuous delivery build",
             firebase_cli_path: "/usr/local/bin/firebase",
