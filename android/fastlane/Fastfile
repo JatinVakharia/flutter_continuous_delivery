@@ -1,0 +1,50 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+  desc "Runs all the tests"
+  lane :test do
+    gradle(task: "test")
+  end
+
+  desc "Submit a new Beta Build to Crashlytics Beta"
+  lane :beta do
+    gradle(task: "clean assembleRelease")
+    crashlytics
+  
+    # sh "your_script.sh"
+    # You can also use other beta testing services here
+  end
+
+  desc "New Build to App Distribution Beta"
+    lane :betadistribution do
+      gradle(task: "clean assembleRelease")
+      firebase_app_distribution(
+            app: "1:221518438226:android:3327484f2345963d4a248b",
+            testers: "vakhariajat@gmail.com, jaitnjvv@gmail.com",
+            release_notes: "My First continuous delivery build",
+            firebase_cli_path: "/usr/local/bin/firebase",
+            apk_path: "../build/app/outputs/apk/release/app-release.apk"
+      )
+    end
+
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    gradle(task: "clean assembleRelease")
+    upload_to_play_store
+  end
+end
